@@ -1,0 +1,41 @@
+
+- name: Adding Brightbox PPA for Ruby
+  apt_repository: repo='ppa:brightbox/ruby-ng'
+
+- name: Install Packages
+  action: apt pkg={{item}}
+  with_items:
+  - ruby{{ruby_version}}
+  - ruby{{ruby_version}}-dev
+  - build-essential
+  - apache2-mpm-worker
+  - apache2-dev
+  - libcurl4-openssl-dev
+  - libapr1-dev
+  - libaprutil1-dev
+
+- name: Install passenger gem
+  gem: name=passenger user_install=no version={{passenger_version}}
+
+- name: Run passenger-install-apache2-module
+  command: "{{passenger_path}}/bin/passenger-install-apache2-module --auto"
+  args:
+    creates: "{{passenger_path}}/buildout/apache2/mod_passenger.so"
+  notify: reload apache2
+
+- stat: path="{{passenger_path}}/buildout/apache2/mod_passenger.so"
+  register: passenger_so
+
+- fail: msg="mod_passenger.so missing"
+  when: passenger_so.stat.exists == false
+
+- name: Generate passenger.conf
+  shell: "{{passenger_path}}/bin/passenger-install-apache2-module --snippet > /etc/apache2/conf-available/passenger.conf"
+  args:
+    creates: /etc/apache2/conf-available/passenger.conf
+
+- name: Enable passenger
+  command: a2enconf passenger
+  args:
+    creates: /etc/apache2/conf-enabled/passenger.conf
+  notify: reload apache2

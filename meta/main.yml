@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Julian Kornberger
+  description: "Installs Apache2-worker, Ruby 2.1 and Phusion Passenger on Ubuntu 14.04"
+  company: Digineo GmbH
+  license: MIT
+  min_ansible_version: 1.7
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  categories:
+  - packaging
+  - web
+dependencies: []
