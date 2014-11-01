@@ -33,7 +33,7 @@
   with_items:
   - passenger.conf
   - passenger.load
-  notify: reload apache2
+  notify: restart apache2
 
 - name: Enable passenger
   apache2_module: state=present name=passenger
