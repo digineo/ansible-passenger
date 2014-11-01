@@ -10,6 +10,7 @@ The following variables are defaults an can be overridden:
 
     ruby_version: "2.1"
     passenger_version: "4.0.53"
+    passenger_friendly_error_pages: false
 
 Example Playbook
 ----------------
