@@ -1,4 +1,4 @@
-
+---
 - name: Adding Brightbox PPA for Ruby
   apt_repository: repo='ppa:brightbox/ruby-ng'
 
@@ -18,24 +18,22 @@
   gem: name=passenger user_install=no version={{passenger_version}}
 
 - name: Run passenger-install-apache2-module
-  command: "{{passenger_path}}/bin/passenger-install-apache2-module --auto"
+  command: "{{passenger_root}}/bin/passenger-install-apache2-module --auto"
   args:
-    creates: "{{passenger_path}}/buildout/apache2/mod_passenger.so"
-  notify: reload apache2
+    creates: "{{passenger_module}}"
 
-- stat: path="{{passenger_path}}/buildout/apache2/mod_passenger.so"
+- stat: path={{passenger_module}}
   register: passenger_so
 
-- fail: msg="mod_passenger.so missing"
+- fail: msg="{{passenger_module}} missing"
   when: passenger_so.stat.exists == false
 
-- name: Generate passenger.conf
-  shell: "{{passenger_path}}/bin/passenger-install-apache2-module --snippet > /etc/apache2/conf-available/passenger.conf"
-  args:
-    creates: /etc/apache2/conf-available/passenger.conf
+- name: Upload Passenger configuration
+  template: src={{item}}.j2 dest=/etc/apache2/mods-available/{{item}}
+  with_items:
+  - passenger.conf
+  - passenger.load
+  notify: reload apache2
 
 - name: Enable passenger
-  command: a2enconf passenger
-  args:
-    creates: /etc/apache2/conf-enabled/passenger.conf
-  notify: reload apache2
+  apache2_module: state=present name=passenger

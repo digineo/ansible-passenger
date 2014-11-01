@@ -9,9 +9,7 @@ Role Variables
 The following variables are defaults an can be overridden:
 
     ruby_version: "2.1"
-    gem_home: "/var/lib/gems/{{ruby_version}}.0"
     passenger_version: "4.0.53"
-    passenger_path: "{{gem_home}}/gems/passenger-{{passenger_version}}"
 
 Example Playbook
 ----------------
