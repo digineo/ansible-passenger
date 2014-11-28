@@ -1,7 +1,8 @@
 digineo.passenger
 =========
 
-Installs Apache2-worker, Ruby 2.1 from [Brightbox PPA](https://launchpad.net/~brightbox/+archive/ubuntu/ruby-ng) and [Phusion Passenger](https://www.phusionpassenger.com/) on Ubuntu
+Installs Apache2-worker, Ruby 2.1 and [Phusion Passenger](https://www.phusionpassenger.com/) on Ubuntu and Debian Jessie.
+On Ubuntu Ruby is installed from the [Brightbox PPA](https://launchpad.net/~brightbox/+archive/ubuntu/ruby-ng).
 
 Role Variables
 --------------

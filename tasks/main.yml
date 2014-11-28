@@ -1,6 +1,7 @@
 ---
 - name: Adding Brightbox PPA for Ruby
   apt_repository: repo='ppa:brightbox/ruby-ng'
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install Packages
   action: apt pkg={{item}}
@@ -10,9 +11,25 @@
   - build-essential
   - apache2-mpm-worker
   - apache2-dev
+  - libssl-dev
   - libcurl4-openssl-dev
   - libapr1-dev
   - libaprutil1-dev
+
+- name: Set default ruby
+  command: update-alternatives --install /usr/bin/{{item}} {{item}} /usr/bin/{{item}}{{ruby_version}} 100
+  when: ansible_distribution == 'Debian'
+  args:
+    creates: /usr/bin/{{item}}
+  with_items:
+  - ruby
+  - erb
+  - gem
+  - irb
+  - rake
+  - rdoc
+  - ri
+  - testrb
 
 - name: Install passenger gem
   gem: name=passenger user_install=no version={{passenger_version}}

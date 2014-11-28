@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Julian Kornberger
-  description: "Installs Apache2-worker, Ruby 2.1 and Phusion Passenger on Ubuntu"
+  description: "Installs Apache2-worker, Ruby 2.1 and Phusion Passenger on Ubuntu/Debian"
   company: Digineo GmbH
   license: MIT
   min_ansible_version: 1.7
@@ -13,6 +13,9 @@ galaxy_info:
     - raring
     - saucy
     - trusty
+  - name: Debian
+    versions:
+    - jessie
   categories:
   - packaging
   - web
