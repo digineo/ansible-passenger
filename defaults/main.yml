@@ -1,7 +1,7 @@
 ---
 ruby_version: "2.1"
 gem_home: "/var/lib/gems/{{ruby_version}}.0"
-passenger_version: "4.0.56"
+passenger_version: "4.0.57"
 passenger_root: "{{gem_home}}/gems/passenger-{{passenger_version}}"
 passenger_module: "{{passenger_root}}/buildout/apache2/mod_passenger.so"
 passenger_friendly_error_pages: false
