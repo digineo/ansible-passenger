@@ -31,19 +31,11 @@
   - ri
   - testrb
 
-- name: Install passenger gem
-  gem: name=passenger user_install=no version={{passenger_version}}
+- include: "passenger_apt.yml"
+  when: passenger_use_apt
 
-- name: Run passenger-install-apache2-module
-  command: "{{passenger_root}}/bin/passenger-install-apache2-module --auto"
-  args:
-    creates: "{{passenger_module}}"
-
-- stat: path={{passenger_module}}
-  register: passenger_so
-
-- fail: msg="{{passenger_module}} missing"
-  when: passenger_so.stat.exists == false
+- include: "passenger_make.yml"
+  when: not passenger_use_apt
 
 - name: Upload Passenger configuration
   template: src={{item}}.j2 dest=/etc/apache2/mods-available/{{item}}

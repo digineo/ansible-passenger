@@ -16,6 +16,8 @@ galaxy_info:
   - name: Debian
     versions:
     - jessie
+    - wheezy
+    - squeeze
   categories:
   - packaging
   - web

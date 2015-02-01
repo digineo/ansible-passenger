@@ -1,0 +1,14 @@
+---
+- name: Install passenger gem
+  gem: name=passenger user_install=no version={{passenger_version}}
+
+- name: Run passenger-install-apache2-module
+  command: "{{passenger_root}}/bin/passenger-install-apache2-module --auto"
+  args:
+    creates: "{{passenger_module}}"
+
+- stat: path={{passenger_module}}
+  register: passenger_so
+
+- fail: msg="{{passenger_module}} missing"
+  when: passenger_so.stat.exists == false
