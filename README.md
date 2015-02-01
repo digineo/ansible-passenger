@@ -10,7 +10,7 @@ Role Variables
 The following variables are defaults an can be overridden:
 
     ruby_version: "2.1"
-    passenger_version: "4.0.57"
+    passenger_version: "4.0.58"
     passenger_friendly_error_pages: false
 
 Example Playbook
@@ -18,7 +18,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-      - { role: digineo.passenger, passenger_version: "4.0.57" }
+      - { role: digineo.passenger, passenger_version: "4.0.58" }
 
 License
 -------
