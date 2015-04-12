@@ -10,7 +10,7 @@ Role Variables
 The following variables are defaults an can be overridden:
 
     ruby_version: "2.1"
-    passenger_version: "4.0.58"
+    passenger_version: "5.0.6"
     passenger_friendly_error_pages: false
 
 `passenger_version` is only relevant if Phusion does not offer APT packages for your distribution.
