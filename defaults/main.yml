@@ -1,7 +1,7 @@
 ---
 ruby_version: "2.2"
 gem_home: "/var/lib/gems/{{ruby_version}}.0"
-passenger_version: "5.0.7"
+passenger_version: "5.0.10"
 passenger_friendly_error_pages: false
 passenger_use_apt: "{{ ansible_distribution_release in [\"trusty\",\"precise\",\"lucid\",\"wheezy\",\"squeeze\"] }}"
 passenger_root:   "{{ \"/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini\"  if passenger_use_apt == \"True\" else gem_home + \"/gems/passenger-\" + passenger_version }}"
