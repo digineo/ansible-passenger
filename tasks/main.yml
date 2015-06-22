@@ -1,4 +1,10 @@
 ---
+- name: Add phusion key
+  apt_key: keyserver='keyserver.ubuntu.com' id=16378A33A6EF16762922526E561F9B9CAC40B2F7
+
+- name: Add phusion repository
+  apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ansible_distribution_release}} main'
+
 - name: Adding Brightbox PPA for Ruby
   apt_repository: repo='ppa:brightbox/ruby-ng'
   when: ansible_distribution == 'Ubuntu'
@@ -15,6 +21,8 @@
   - libcurl4-openssl-dev
   - libapr1-dev
   - libaprutil1-dev
+  - apt-transport-https
+  - ca-certificates
 
 - name: Set default ruby
   command: update-alternatives --install /usr/bin/{{item}} {{item}} /usr/bin/{{item}}{{ruby_version}} 100
@@ -31,11 +39,8 @@
   - ri
   - testrb
 
-- include: "passenger_apt.yml"
-  when: passenger_use_apt
-
-- include: "passenger_make.yml"
-  when: not passenger_use_apt
+- name: Install passenger
+  action: apt pkg=libapache2-mod-passenger
 
 - name: Upload Passenger configuration
   template: src={{item}}.j2 dest=/etc/apache2/mods-available/{{item}}
