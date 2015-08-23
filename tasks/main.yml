@@ -10,7 +10,7 @@
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install Packages
-  action: apt pkg={{item}}
+  apt: name={{item}}
   with_items:
   - ruby{{ruby_version}}
   - ruby{{ruby_version}}-dev
@@ -40,7 +40,7 @@
   - testrb
 
 - name: Install passenger
-  action: apt pkg=libapache2-mod-passenger
+  apt: name=libapache2-mod-passenger
 
 - name: Upload Passenger configuration
   template: src={{item}}.j2 dest=/etc/apache2/mods-available/{{item}}
