@@ -1,0 +1,13 @@
+---
+- name: Add phusion key
+  apt_key: keyserver='keyserver.ubuntu.com' id=16378A33A6EF16762922526E561F9B9CAC40B2F7
+
+- name: Install apt-transport-https
+  apt: name=apt-transport-https
+
+- name: Add phusion repository
+  apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ansible_distribution_release}} main'
+
+- name: Adding Brightbox PPA for Ruby
+  apt_repository: repo='ppa:brightbox/ruby-ng'
+  when: ansible_distribution == 'Ubuntu'

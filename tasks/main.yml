@@ -1,16 +1,7 @@
 ---
-- name: Add phusion key
-  apt_key: keyserver='keyserver.ubuntu.com' id=16378A33A6EF16762922526E561F9B9CAC40B2F7
-
-- name: Install apt-transport-https
-  apt: name=apt-transport-https
-
-- name: Add phusion repository
-  apt_repository: repo='deb https://oss-binaries.phusionpassenger.com/apt/passenger {{ansible_distribution_release}} main'
-
-- name: Adding Brightbox PPA for Ruby
-  apt_repository: repo='ppa:brightbox/ruby-ng'
-  when: ansible_distribution == 'Ubuntu'
+- name: Include phusion repository
+  include: repository.yml
+  when: ansible_distribution_version != "16.04"
 
 - name: Install Packages
   apt: name={{item}}
@@ -18,7 +9,7 @@
   - ruby{{ruby_version}}
   - ruby{{ruby_version}}-dev
   - build-essential
-  - apache2-mpm-worker
+  - apache2
   - apache2-dev
   - libssl-dev
   - libcurl4-openssl-dev
